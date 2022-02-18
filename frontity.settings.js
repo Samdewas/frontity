@@ -26,7 +26,7 @@ const settings = {
               "/category/travel/"
             ],
             [
-              "Japan",
+              "Belgium",
               "/tag/japan/"
             ],
             [
