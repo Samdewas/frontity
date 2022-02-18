@@ -1,0 +1,4 @@
+user-agent: *
+disallow: 
+
+sitemap: https://watchrepairco.com/sitemap_index.xml
