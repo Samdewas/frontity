@@ -32,6 +32,10 @@ const settings = {
             [
               "About Us",
               "/about-us/"
+            ],
+            [
+              "Sitemap",
+              "/sitemap.xml"
             ]
           ],
           "featured": {
@@ -45,13 +49,30 @@ const settings = {
       "name": "@frontity/wp-source",
       "state": {
         "source": {
-          "url": "https://test.frontity.org"
+          "url": "https://watchrepairco.com/"
         }
       }
     },
+    
     "@frontity/tiny-router",
     "@frontity/html2react"
   ]
 };
 
 export default settings;
+
+export const server = ({ app }) => {
+  app.use(
+    get("/sitemap-*.xml", async ctx => {
+      const origin = ctx.settings.state.sitemap.orign;
+      const frontityUrl = ctx.settings.state.frontity.url;
+      // Get the original sitemap from the WordPress site.
+      const response = await fetch(`${origin}/${ctx.path}`);
+      const body = await response.text();
+      // Replace the URLs of WordPress for URLs of Frontity.
+      ctx.body = body.replaceAll(origin, frontityUrl);
+      // Do not cache this.
+      ctx.set("cache-control: no-cache");
+    })
+  );
+};
